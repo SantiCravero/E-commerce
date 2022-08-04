@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700&display=swap");
+.bg-gamer {
+  background-color: #02d206;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.container-md {
+  height: 90px;
+}
+@media all and (min-width: 992px) {
+  .container-md {
+    padding: 0 5.5rem;
+  }
+}
+.container-md .navbar-brand img {
+  width: 220px;
+  height: 100px;
+}
+.container-md #primerForm {
+  width: 450px;
+  height: 50px;
+}
+.container-md #primerForm > input, .container-md #primerForm button {
+  border: 1px solid grey;
+}
+.container-md #primerForm > input:focus, .container-md #primerForm button:focus {
+  box-shadow: none;
+}
+.container-md #primerForm > input {
+  border-right: none;
+}
+.container-md #primerForm > input:focus {
+  border: 2px solid #91C612;
+}
+.container-md #primerForm > button {
+  border-left: none;
+}
+.container-md .d-flex {
+  margin-top: 3px;
+}
+.container-md .d-flex .sesion {
+  font-size: 1.1rem;
+  background-color: #91C612;
+  border: 1px black solid;
+  padding: 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  margin: 0 0.4rem 0 1rem;
+  padding: 2px 5px;
+  max-height: 75px;
+  align-self: center;
+  text-transform: none;
+  box-shadow: none;
+  transition: all 300ms;
+}
+.container-md .d-flex .sesion:hover {
+  background-color: #82ab25;
+}
+.container-md .d-flex #iniciarSesion {
+  text-align: center;
+}
+.container-md .d-flex #iniciarSesion input {
+  margin: 1px 0;
+  width: 150px;
+  height: 20px;
+}
+.container-md .d-flex .carrito {
+  margin: 0 20px;
+}
+.container-md .d-flex .carrito svg {
+  width: 28px;
+}
+
+#second-nav {
+  border: 1px solid black;
+  border-left: none;
+  border-right: none;
+}
+#second-nav .container #navbarNav ul {
+  width: 70%;
+  justify-content: space-between;
+}
+#second-nav .container #navbarNav ul li {
+  text-transform: uppercase;
+}
+#second-nav .container #navbarNav ul li :hover {
+  color: black;
+}
+#second-nav .container #navbarNav ul li a {
+  color: white;
+}
+
+.spanSesion {
+  color: #91C612;
+  margin-left: 1rem;
+}
+.spanSesion i {
+  font-size: 1.2rem;
+  justify-content: center;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.row img {
+  padding: 8px;
+  height: 15rem;
+  max-height: 15rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.row .auto {
+  justify-content: center;
+}
+.row .auto .card:hover {
+  border: 1px solid #009a03;
+}
+.row .auto .card button {
+  box-shadow: none;
+  background-color: #02d206;
+  transition: all 300ms;
+}
+.row .auto .card button:hover {
+  background-color: #04b307;
+}
+
+#resultadoBusqueda {
+  margin-left: 4rem;
+}
+#resultadoBusqueda .alerta {
+  position: absolute;
+  z-index: 1000;
+  margin: 0.25rem;
+  padding: 0.3rem 1rem;
+}
+
+.container-xl .comprando {
+  font-size: 0.9rem;
+  background-color: #91C612;
+  border: 1px black solid;
+  padding: 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  box-shadow: none;
+}/*# sourceMappingURL=style.css.map */

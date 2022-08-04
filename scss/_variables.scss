@@ -1,0 +1,17 @@
+$color-gamer: #91C612;
+$color-gamer-original: #02d206;
+
+.bg-gamer{
+    background-color: #02d206;
+}
+
+@mixin botones($fontsize){
+    font-size: $fontsize;
+    background-color: $color-gamer;
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+// #01F705

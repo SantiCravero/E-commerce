@@ -1,0 +1,42 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.row{
+    img{
+        padding: 8px;
+        height: 15rem;
+        max-height: 15rem;
+        object-fit: cover;
+    }
+    .auto{
+        justify-content: center;
+        .card{
+            &:hover{
+                border: 1px solid #009a03;
+            }
+            button{
+                box-shadow: none;
+                background-color: $color-gamer-original;
+                transition: all 300ms;
+                &:hover{
+                    background-color: #04b307;
+                }
+            }
+        }
+    }
+}
+
+#resultadoBusqueda{
+    margin-left: 4rem;
+    .alerta{
+        position: absolute;
+        z-index: 1000;
+        margin: 0.25rem;
+        padding: .3rem 1rem;
+    }
+}
+
+
+// #198754

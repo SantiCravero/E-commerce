@@ -1,0 +1,103 @@
+@import "variables";
+@import "fuentes";
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container-md{
+    height: 90px;
+    @media all and (min-width:992px) {
+            padding: 0 5.5rem;
+    }
+    .navbar-brand{
+        img{
+            width: 220px;
+            height: 100px;
+        }
+    }
+    #primerForm{
+        width: 450px;
+        height: 50px;
+        >input, button{
+            border: 1px solid grey;
+            &:focus{
+                box-shadow: none;
+            }
+        }
+        >input{
+            border-right: none;
+            &:focus{
+                border: 2px solid $color-gamer;
+            }
+        }
+        >button{
+            border-left: none;
+        }
+    }
+    .d-flex{
+        margin-top: 3px;
+        .sesion{
+            @include botones(1.1rem);
+            margin: 0 .4rem 0 1rem;
+            padding: 2px 5px;
+            max-height: 75px;
+            align-self: center;
+            text-transform: none;
+            box-shadow: none;
+            transition: all 300ms;
+            &:hover{
+                background-color: #82ab25;
+            }
+        }
+        #iniciarSesion{
+            text-align: center;
+            input{
+                margin: 1px 0;
+                width: 150px;
+                height: 20px;
+            }
+        }
+        .carrito{
+            margin: 0 20px;
+            svg{
+                width: 28px;
+            }
+        }
+    }
+}
+
+#second-nav{
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    .container{
+        #navbarNav{
+            ul{
+                width: 70%;
+                justify-content: space-between;
+                li{
+                    text-transform: uppercase;
+                    :hover{
+                        color: black;
+                    }
+                    a{
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.spanSesion{
+    color: $color-gamer;
+    margin-left: 1rem;
+    i{
+        font-size: 1.2rem;
+        justify-content: center;
+    }
+}
+
+@import "pages/main";
+@import "pages/carrito";

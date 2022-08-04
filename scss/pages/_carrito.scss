@@ -1,0 +1,6 @@
+.container-xl{
+    .comprando{
+        @include botones(.9rem);
+        box-shadow: none;
+    }
+}
