@@ -132,18 +132,22 @@ guardarPreferencias()
 
 function guardarPreferencias(inputUser) {
 
-    const login = document.getElementById("user")
     const user = localStorage.getItem("usuario").value
     if (user) //mode !=== null, undefined, 0, false, ""
     {
         setUser(inputUser.value)
-        botonForm()
     }
 }
 
 
 
 function iniciarSesion() {
+
+    if(localStorage.getItem("usuario")){
+        guardarPreferencias()
+    }
+
+    else{
 
     const botonInicio = document.getElementById(`botonInicio`)
     const formulario = document.getElementById("iniciarSesion")
@@ -176,7 +180,7 @@ function iniciarSesion() {
         botonForm(formulario, inputUser)
         setUser(inputUser)
     })
-}
+}}
 
 function botonForm(formulario, inputUser) {
     let textBienvenido = document.createElement(`span`)
