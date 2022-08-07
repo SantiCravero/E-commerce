@@ -11,7 +11,6 @@ console.log("Productos Iniciales", catalogoProducto.productos)
 
 
 verProductos(productos)
-buscador()
 iniciarSesion()
 
 function verProductos(productoLista) {
@@ -26,7 +25,7 @@ function verProductos(productoLista) {
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bolder">${producto.nombre}</h5>
                                 <p class="card-text">$${producto.precio}</p>
-                                <button id="btn-product-${producto.id}" class="btn botonCarrito">Añadir al carrito</button>
+                                <button id="list-product-${producto.id}" class="btn botonCarrito">Añadir al carrito</button>
                             </div>
                         </div>
                     </div>`
@@ -35,21 +34,21 @@ function verProductos(productoLista) {
     })
 }
 
-function buscador() {
-    const nodoBoton = document.getElementById("botonBuscador")
-    nodoBoton.addEventListener("click", () => {
-        const nodoBuscador = document.getElementById("buscador").value
-        filtrarTexto(nodoBuscador)
-    })
-    const nodoBuscador = document.getElementById("buscador")
-    nodoBuscador.addEventListener("keypress", (e) => {
-        if (e.keyCode == 13) {
-            filtrarTexto(nodoBuscador.value)
-            e.preventDefault()
-        }
-    })
+const nodoBoton = document.getElementById("botonBuscador")
+nodoBoton.addEventListener("click", () => {
+    const nodoBuscador = document.getElementById("buscador").value
+    filtrarTexto(nodoBuscador)
+    // borrarForm(nodoBuscador.value)
+})
 
-}
+const nodoBuscador = document.getElementById("buscador")
+nodoBuscador.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+        filtrarTexto(nodoBuscador.value)
+        e.preventDefault()
+        // borrarForm(nodoBuscador.value)
+    }
+})
 
 function filtrarTexto(nodoBuscador) {
     const filtrados = productos.filter((producto) =>
@@ -58,45 +57,8 @@ function filtrarTexto(nodoBuscador) {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function borrarForm(nodoBuscador) {
-//     nodoBuscador.value = ""
-// }
-
-
-// function buscador() {
-
-
-
-// const nodoBuscador = document.getElementById("buscador").value
-// const nodoBoton = document.getElementById("botonBuscador")
-// let nodoResultado = document.getElementById("resultadoBusqueda")
-
-// nodoBoton.addEventListener("click", ()=>{
-//     completarBuscador()
-//     borrarForm(nodoBuscador)
-// })
-
+// function borrarForm() {
+//     return nodoBuscador.value = ""
 // }
 
 // function filtrarTexto(productos){
@@ -127,60 +89,51 @@ function filtrarTexto(nodoBuscador) {
 // }
 // }
 
-
-guardarPreferencias()
-
-function guardarPreferencias(inputUser) {
-
-    const user = localStorage.getItem("usuario").value
-    if (user) //mode !=== null, undefined, 0, false, ""
-    {
-        setUser(inputUser.value)
-    }
-}
-
-
-
 function iniciarSesion() {
 
-    if(localStorage.getItem("usuario")){
-        guardarPreferencias()
+    if (localStorage.getItem("usuario")) {
+        let textBienvenido = document.createElement('span')
+        textBienvenido.classList.add(`spanSesion`)
+        textBienvenido.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"><p class="m-0 px-2" style="font-size:16px;">Bienvenido/a ${localStorage.getItem("usuario")}!`
+        botonInicio.replaceWith(textBienvenido)
     }
 
-    else{
+    else {
 
-    const botonInicio = document.getElementById(`botonInicio`)
-    const formulario = document.getElementById("iniciarSesion")
-    const inputUser = document.getElementById("user")
-    const inputPass = document.getElementById("pass")
-    const btnIngresar = document.getElementById("btnSubmit")
+        const botonInicio = document.getElementById(`botonInicio`)
+        const formulario = document.getElementById("iniciarSesion")
+        const inputUser = document.getElementById("user")
+        const inputPass = document.getElementById("pass")
+        const btnIngresar = document.getElementById("btnSubmit")
 
 
-    botonInicio.addEventListener('click', () => {
-        if (formulario.getAttribute('state') == 'closed') {
-            formulario.style.display = 'block'
-            botonInicio.innerHTML = `<button type="button" class="btn-close" aria-label="Close"></button>`
-            formulario.setAttribute('state', 'opened')
-        }
-        else {
-            formulario.style.display = 'none';
-            botonInicio.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"></i>Iniciar Sesion`
-            formulario.setAttribute('state', 'closed')
-        }
-    });
+        botonInicio.addEventListener('click', () => {
+            if (formulario.getAttribute('state') == 'closed') {
+                formulario.style.display = 'block'
+                botonInicio.innerHTML = `<button type="button" class="btn-close" aria-label="Close"></button>`
+                formulario.setAttribute('state', 'opened')
+            }
+            else {
+                formulario.style.display = 'none';
+                botonInicio.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"></i>Iniciar Sesion`
+                formulario.setAttribute('state', 'closed')
+            }
+        });
 
-    inputPass.addEventListener('keypress', (e) => {
-        if (e.keyCode == 13) {
+        inputPass.addEventListener('keypress', (e) => {
+            if (e.keyCode == 13) {
+                botonForm(formulario, inputUser)
+                setUser(inputUser)
+            }
+        });
+
+        btnIngresar.addEventListener("click", () => {
+            btnIngresar.classList.add(`botones`)
             botonForm(formulario, inputUser)
-        }
-    });
-
-    btnIngresar.addEventListener("click", () => {
-        btnIngresar.classList.add(`botones`)
-        botonForm(formulario, inputUser)
-        setUser(inputUser)
-    })
-}}
+            setUser(inputUser)
+        })
+    }
+}
 
 function botonForm(formulario, inputUser) {
     let textBienvenido = document.createElement(`span`)
@@ -199,6 +152,36 @@ function setUser(inputUser) {
 
 
 
+productos.forEach((producto) => {
+    productoBtn = document.getElementById(`list-product-${producto.id}`)
+    // console.log(`list-product-${producto.id}`)
+    productoBtn.addEventListener("click", () => {
+        // console.log(producto.id)
+        agregarCarrito(producto)
+    })
 
+})
 
+function agregarCarrito(producto) {
+    const carrito = document.getElementById("carrito")
+
+    carrito.getAttribute('situation' == 'hide')
+    carrito.style.display = 'block'
+
+    mostrarProductoAgregado(producto)
+
+}
+
+function mostrarProductoAgregado(producto) {
+    const listaProducto = document.getElementById("lista")
+
+    console.log(producto)
+
+    productos.forEach((producto) => {
+
+        listaProducto.innerHTML = `
+        <li>${producto}</li>
+    `
+    })
+}
 

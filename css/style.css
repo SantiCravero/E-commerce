@@ -41,6 +41,17 @@ body {
 .container-md .d-flex {
   margin-top: 3px;
 }
+.container-md .d-flex span i {
+  color: #91C612;
+}
+.container-md .d-flex .spanSesion {
+  color: #91C612;
+  margin-left: 1rem;
+}
+.container-md .d-flex .spanSesion i {
+  font-size: 1.2rem;
+  justify-content: center;
+}
 .container-md .d-flex .sesion {
   font-size: 1.1rem;
   background-color: #91C612;
@@ -91,15 +102,6 @@ body {
 }
 #second-nav .container #navbarNav ul li a {
   color: white;
-}
-
-.spanSesion {
-  color: #91C612;
-  margin-left: 1rem;
-}
-.spanSesion i {
-  font-size: 1.2rem;
-  justify-content: center;
 }
 
 body {

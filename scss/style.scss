@@ -37,6 +37,19 @@ body {
     }
     .d-flex{
         margin-top: 3px;
+        span{
+            i{
+                color: $color-gamer;
+            }
+        }
+        .spanSesion{
+            color: $color-gamer;
+            margin-left: 1rem;
+            i{
+                font-size: 1.2rem;
+                justify-content: center;
+            }
+        }
         .sesion{
             @include botones(1.1rem);
             margin: 0 .4rem 0 1rem;
@@ -90,14 +103,7 @@ body {
     }
 }
 
-.spanSesion{
-    color: $color-gamer;
-    margin-left: 1rem;
-    i{
-        font-size: 1.2rem;
-        justify-content: center;
-    }
-}
+
 
 @import "pages/main";
 @import "pages/carrito";
