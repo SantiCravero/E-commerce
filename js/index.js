@@ -6,12 +6,18 @@ const productos = [
     { id: 5, nombre: "Silla Gamer Cooler Master Caliber R2C Grey", precio: 107400, img: "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30964_Silla_Gamer_Cooler_Master_Caliber_R2C_Grey_21bb1177-grn.jpg" },
 ]
 
+let productosCarrito = []
+
 const catalogoProducto = new CatalogoProducto(productos)
 console.log("Productos Iniciales", catalogoProducto.productos)
+
+localStorage.setItem("productos", JSON.stringify(productos));
 
 
 verProductos(productos)
 iniciarSesion()
+vaciarBoton()
+
 
 function verProductos(productoLista) {
 
@@ -173,15 +179,63 @@ function agregarCarrito(producto) {
 }
 
 function mostrarProductoAgregado(producto) {
-    const listaProducto = document.getElementById("lista")
+    let listaProducto = document.getElementById("lista")
 
-    console.log(producto)
+    productosCarrito.push(producto)
 
-    productos.forEach((producto) => {
+    listaProducto.innerHTML = ""
 
-        listaProducto.innerHTML = `
-        <li>${producto}</li>
-    `
+    productosCarrito.forEach((producto) => {
+        listaProducto.innerHTML += `
+                        <li class>${producto.nombre} ($${producto.precio})</li>
+                        `
     })
+
+    console.log(productosCarrito)
+
+
+    sumarPrecio(productosCarrito)
+
 }
 
+function sumarPrecio(productosCarrito) {
+    let total = 0
+    let sumado = document.getElementById("total")
+
+    productosCarrito.forEach((producto)=>{
+        total = producto.precio + total
+        return total
+    })
+    sumado.innerHTML = `${total}`
+    console.log(total)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function vaciarBoton() {
+    const botonVaciar = document.getElementById("boton-vaciar")
+    let listaProducto = document.getElementById("lista")
+    let sumado = document.getElementById("total")
+
+    botonVaciar.addEventListener("click", () => {
+        productosCarrito = []
+        listaProducto.innerHTML = []
+        sumado.innerHTML = ""
+        console.log(productosCarrito)
+    })
+
+}
