@@ -108,12 +108,15 @@
             <div class="d-flex justify-content-between">
 
               <p class="text-right">Total: &dollar;<span id="total"></span></p>
-              <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+              <div id="botonesCarrito">
+                <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+                <button id="boton-comprar" class="btn btn-success">Comprar</button>
+              </div>
             </div>
           </div>
   
         </div>
-        <div class="container">
+        <div class="container my-4">
           <h2 id="novedades" class="mx-3 fs-4">Productos Destacados</h2>
           <div class="row w-100 text-center" id="tienda">
   
@@ -138,6 +141,7 @@
     
   </footer>
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="js/classes/catalogoProducto.js"></script>
   <script src="js/classes/productoClass.js"></script>

@@ -141,6 +141,10 @@ body {
   padding: 0.3rem 1rem;
 }
 
+#botonesCarrito > button:focus {
+  box-shadow: none;
+}
+
 .container-xl .comprando {
   font-size: 0.9rem;
   background-color: #91C612;

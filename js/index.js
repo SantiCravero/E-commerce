@@ -15,6 +15,7 @@ console.log("Productos Iniciales", catalogoProducto.productos)
 verProductos(productos)
 iniciarSesion()
 vaciarBoton()
+comprarBoton()
 
 // Muestra los productos en el DOM
 
@@ -36,25 +37,36 @@ function verProductos(productoLista) {
                     </div>`
 
         nodoPrincipal.innerHTML += cardProducto
+
+        // productoBtn = document.getElementById(`list-product-${producto.id}`)
+        // productoBtn.addEventListener("click", () => {
+        //     agregarCarrito(producto)
+        // })
     })
 }
 
 // Hace funcional el buscador
 
 const nodoBoton = document.getElementById("botonBuscador")
+
 nodoBoton.addEventListener("click", () => {
     const nodoBuscador = document.getElementById("buscador").value
     filtrarTexto(nodoBuscador)
     // borrarForm(nodoBuscador.value)
 })
 
+// const nodoBuscador = document.getElementById("buscador")
+// nodoBuscador.addEventListener("keypress", (e) => {
+//     if (e.keyCode == 13) {
+//         filtrarTexto(nodoBuscador.value)
+//         e.preventDefault()
+//         // borrarForm(nodoBuscador.value)
+//     }
+// })
+
 const nodoBuscador = document.getElementById("buscador")
-nodoBuscador.addEventListener("keypress", (e) => {
-    if (e.keyCode == 13) {
-        filtrarTexto(nodoBuscador.value)
-        e.preventDefault()
-        // borrarForm(nodoBuscador.value)
-    }
+nodoBuscador.addEventListener("input", () => {
+    filtrarTexto(nodoBuscador.value)
 })
 
 function filtrarTexto(nodoBuscador) {
@@ -68,22 +80,6 @@ function filtrarTexto(nodoBuscador) {
 //     return nodoBuscador.value = ""
 // }
 
-// function filtrarTexto(productos){
-//     // let index = nodoBuscador.value.toLowerCase()
-//     // let encontrado = false
-//     // if(index){
-//     //     for(let producto of productos){
-//     //         let nombre = producto.nombre.toLowerCase()
-//     //         if(nombre.indexOf(index) !== -1){
-//     //             encontrado = true
-//     //             window.location.href = `index.html#novedades`
-//     //         }
-//     //     }       
-//     const filtrados = productos.filter((producto)=>{
-//         producto.nombre.indexOf(nodoBuscador !== -1)})
-//         filtrarTexto(filtrados)
-
-//     }
 // if(!encontrado){
 //     nodoResultado.innerHTML = `
 //     <div class="alert alert-danger d-flex align-items-center alerta" role="alert">
@@ -95,6 +91,7 @@ function filtrarTexto(nodoBuscador) {
 //     `
 // }
 // }
+
 
 // Boton de Iniciar Sesion
 
@@ -108,7 +105,6 @@ function iniciarSesion() {
     }
 
     else {
-
         const botonInicio = document.getElementById(`botonInicio`)
         const formulario = document.getElementById("iniciarSesion")
         const inputUser = document.getElementById("user")
@@ -130,16 +126,12 @@ function iniciarSesion() {
         });
 
         inputPass.addEventListener('keypress', (e) => {
-            if (e.keyCode == 13) {
-                botonForm(formulario, inputUser)
-                setUser(inputUser)
-            }
+            e.keyCode == 13 ? (botonForm(formulario, inputUser), setUser(inputUser)) : false
         });
 
         btnIngresar.addEventListener("click", () => {
             btnIngresar.classList.add(`botones`)
-            botonForm(formulario, inputUser)
-            setUser(inputUser)
+            btnIngresar ? (botonForm(formulario, inputUser), setUser(inputUser)) : false
         })
     }
 }
@@ -158,38 +150,26 @@ function setUser(inputUser) {
 }
 
 
-
-
-
 // Agregar productos al carrito
 
 productos.forEach((producto) => {
     productoBtn = document.getElementById(`list-product-${producto.id}`)
     // console.log(`list-product-${producto.id}`)
-    if (localStorage.getItem("productos")) {
-        carrito.style.display = 'block'
-        let productos = localStorage.getItem("productos")
-        productosCarrito = JSON.parse(productos)
-        
-        // mostrarProductoAgregado(productosCarrito)
-
-        let listaProducto = document.getElementById("lista")
-        listaProducto.innerHTML = ""
-        productosCarrito.forEach((producto) => {
-            listaProducto.innerHTML += `
-                        <li>${producto.nombre} - $${producto.precio}</li>
-                        `
-        })
-
-        sumarPrecio(productosCarrito)
-
-    }
     productoBtn.addEventListener("click", () => {
         // console.log(producto.id)
         agregarCarrito(producto)
     })
-
 })
+
+if (localStorage.getItem("productos")) {
+    carrito.style.display = 'block'
+    let productos = localStorage.getItem("productos")
+    productosCarrito = JSON.parse(productos)
+
+    // mostrarProductoAgregado(productosCarrito)
+
+    productoAgregado()
+}
 
 function agregarCarrito(producto) {
     const carrito = document.getElementById("carrito")
@@ -203,29 +183,21 @@ function agregarCarrito(producto) {
 
 function mostrarProductoAgregado(producto) {
 
-    // if (localStorage.getItem("productos")) {
-        // let productos = localStorage.getItem("productos")
-        // productosCarrito = JSON.parse(productos)
-        // console.log(productosCarrito)
-    // }
+    productosCarrito.push(producto)
+    productoAgregado()
+}
 
-    // else {
-        let listaProducto = document.getElementById("lista")
+function productoAgregado(){
+    let listaProducto = document.getElementById("lista")
 
-        productosCarrito.push(producto)
-        listaProducto.innerHTML = ""
-        productosCarrito.forEach((producto) => {
-            listaProducto.innerHTML += `
+    listaProducto.innerHTML = ""
+    productosCarrito.forEach((producto) => {
+        listaProducto.innerHTML += `
                         <li>${producto.nombre} - $${producto.precio}</li>
                         `
-        })
-
-        sumarPrecio(productosCarrito)
-    }
-
-
-// }
-
+    })
+    sumarPrecio(productosCarrito)
+}
 
 function sumarPrecio(productosCarrito) {
     let total = 0
@@ -268,5 +240,18 @@ function vaciarBoton() {
         // carrito.setAttribute('situation', 'open')
         // carrito.style.display = 'none'
     })
+}
 
+function comprarBoton() {
+    const botonComprar = document.getElementById("boton-comprar")
+    let listaProducto = document.getElementById("lista")
+    let sumado = document.getElementById("total")
+
+    botonComprar.addEventListener("click", () => {
+        productosCarrito = []
+        listaProducto.innerHTML = []
+        sumado.innerHTML = ""
+        localStorage.removeItem("productos")
+        swal("Buen trabajo!", "Tu compra ha sido realizada!", "success")
+    })
 }
