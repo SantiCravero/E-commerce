@@ -55,16 +55,15 @@ nodoBoton.addEventListener("click", () => {
     // borrarForm(nodoBuscador.value)
 })
 
-// const nodoBuscador = document.getElementById("buscador")
-// nodoBuscador.addEventListener("keypress", (e) => {
-//     if (e.keyCode == 13) {
-//         filtrarTexto(nodoBuscador.value)
-//         e.preventDefault()
-//         // borrarForm(nodoBuscador.value)
-//     }
-// })
-
 const nodoBuscador = document.getElementById("buscador")
+nodoBuscador.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+        filtrarTexto(nodoBuscador.value)
+        e.preventDefault()
+        // borrarForm(nodoBuscador.value)
+    }
+})
+
 nodoBuscador.addEventListener("input", () => {
     filtrarTexto(nodoBuscador.value)
 })
@@ -156,7 +155,6 @@ productos.forEach((producto) => {
     productoBtn = document.getElementById(`list-product-${producto.id}`)
     // console.log(`list-product-${producto.id}`)
     productoBtn.addEventListener("click", () => {
-        // console.log(producto.id)
         agregarCarrito(producto)
     })
 })
@@ -184,48 +182,84 @@ function agregarCarrito(producto) {
 function mostrarProductoAgregado(producto) {
 
     productosCarrito.push(producto)
-    productoAgregado()
+    productoAgregado(producto)
 }
 
-function productoAgregado(){
+function productoAgregado() {
     let listaProducto = document.getElementById("lista")
 
     listaProducto.innerHTML = ""
     productosCarrito.forEach((producto) => {
-        listaProducto.innerHTML += `
-                        <li>${producto.nombre} - $${producto.precio}</li>
+        const createDiv = document.createElement('div')
+        const cardCarrito = `
+                        <div class="clase d-flex justify-content-between h-25">
+                            <li>${producto.nombre} - <span class="precio">$${producto.precio}</span></li>
+                            <div class="d-flex">
+                            <input class="cantidad" type="number" value="1">
+                            <button class="btn btn-danger botonBorrar" type="button"><i class="bi bi-trash-fill"></i></button>
+                            </div>
+                        </div>
                         `
+
+        createDiv.innerHTML += cardCarrito
+        listaProducto.appendChild(createDiv)
+
+        createDiv
+            .querySelector('.botonBorrar')
+            .addEventListener("click", eliminarProductoDelCarrito)
+
+        sumarPrecio()
     })
-    sumarPrecio(productosCarrito)
 }
 
-function sumarPrecio(productosCarrito) {
-    let total = 0
-    let sumado = document.getElementById("total")
+function sumarPrecio() {
+    let total = Number(0)
+    const sumado = document.getElementById("total")
+    const elementoCarrito = document.querySelectorAll('.clase')
 
-    productosCarrito.forEach((producto) => {
-        total = producto.precio + total
-        sumado.innerHTML = `${total}`
+    elementoCarrito.forEach((producto) => {
+
+        const precioDelProducto = producto.querySelector('.precio')
+        const precioTotalCarrito = Number(precioDelProducto.textContent.replace('$', ''))
+
+        const quantity = producto.querySelector('.cantidad')
+        const quantityProducto = Number(quantity.value)
+
+        total = total + precioTotalCarrito * quantityProducto
     })
+    sumado.innerHTML = `$${total}`
     setProductos()
 }
+
+function eliminarProductoDelCarrito(event) {
+    // eliminarArrProducto(event)
+    const botonClickeado = event.target;
+    botonClickeado.closest('.clase').remove();
+    sumarPrecio();
+}
+
+// function eliminarArrProducto(){
+//     productosCarrito.indexOf((producto)=>{
+//         console.log(productosCarrito)
+//         productosCarrito.splice(event, producto)
+//     })
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 function setProductos() {
     localStorage.setItem("productos", JSON.stringify(productosCarrito))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function vaciarBoton() {
     const botonVaciar = document.getElementById("boton-vaciar")
@@ -233,12 +267,30 @@ function vaciarBoton() {
     let sumado = document.getElementById("total")
 
     botonVaciar.addEventListener("click", () => {
-        productosCarrito = []
-        listaProducto.innerHTML = []
-        sumado.innerHTML = ""
-        localStorage.removeItem("productos")
-        // carrito.setAttribute('situation', 'open')
-        // carrito.style.display = 'none'
+        Swal.fire({
+            title: 'Estas seguro?',
+            text: "No podras revertirlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#C1C1C1',
+            confirmButtonText: 'Si, estoy seguro!',
+            cancelButtonText: 'Cancelar',
+        }).then((resultado) => {
+            if (resultado.isConfirmed) {
+                Swal.fire(
+                    'Eliminado!',
+                    'Tu carrito se ha vaciado',
+                    'success'
+                )
+                productosCarrito = []
+                listaProducto.innerHTML = []
+                sumado.innerHTML = "$0"
+                localStorage.removeItem("productos")
+                carrito.setAttribute('situation', 'open')
+                carrito.style.display = 'none'
+            }
+        })
     })
 }
 
@@ -250,8 +302,8 @@ function comprarBoton() {
     botonComprar.addEventListener("click", () => {
         productosCarrito = []
         listaProducto.innerHTML = []
-        sumado.innerHTML = ""
+        sumado.innerHTML = "$0"
         localStorage.removeItem("productos")
-        swal("Buen trabajo!", "Tu compra ha sido realizada!", "success")
+        Swal.fire("Buen trabajo!", "Tu compra ha sido realizada!", "success")
     })
 }
