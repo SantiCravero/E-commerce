@@ -46,3 +46,19 @@ body{
     }
     
 }
+
+#lista{
+    .tamaño{
+        width: 5.5rem;
+    }
+    .divBorrar{
+        height: 37px;
+        .suma_resta{
+            &:focus{
+                box-shadow: 0 0 0 0.15rem rgb(145 198 18 / 25%);
+            }
+        }
+    }
+}
+
+

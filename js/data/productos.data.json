@@ -1,0 +1,7 @@
+[
+    { "id": 1, "nombre": "Placa de Video Asrock RX 570 8GB Phantom", "precio": 53050, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_28822_Placa_de_Video_Asrock_RX_570_8GB_GDDR5_Phantom_Gaming_Elite_9ecf3ec5-grn.jpg" },
+    { "id": 2, "nombre": "PC Intel I3 10100F SSD 240GB 8GB", "precio": 69900, "img": "https://www.venex.com.ar/products_images/1607972440_1604925619_pcintelcorei39100ssd240gb8gbddr4.jpg" },
+    { "id": 3, "nombre": "Monitor LG LED 19'' 19M38A-B VGA", "precio": 30450, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_8683_Monitor_LG_LED_19___19M38A-B_VGA_4607eba4-grn.jpg" },
+    { "id": 4, "nombre": "Teclado HP HyperX Alloy CORE RGB LA", "precio": 6650, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_26222_Teclado_HP_HyperX_Alloy_CORE_RGB_LA_dd3acd58-grn.jpg" },
+    { "id": 5, "nombre": "Silla Gamer Cooler Master Caliber R2C Grey", "precio": 107400, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30964_Silla_Gamer_Cooler_Master_Caliber_R2C_Grey_21bb1177-grn.jpg" }
+]

@@ -2,7 +2,7 @@ $color-gamer: #91C612;
 $color-gamer-original: #02d206;
 
 .bg-gamer{
-    background-color: #02d206;
+    background-color: $color-gamer-original;
 }
 
 @mixin botones($fontsize){

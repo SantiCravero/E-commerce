@@ -103,7 +103,28 @@ body {
     }
 }
 
+#footer{
+    .imagen{
+        width: 20rem;
+        transition: all 300ms;
+        &:hover{
+            transform: scale(1.02);
+        }
+    }
+    .logo{
+        font-size: 2.4rem;
+        color: white;
+        margin: 0 10px;
+        transition: all 300ms;
+        &:hover{
+            transform: scale(1.05)
+        }
+        @media all and (max-width: 769px){
+            margin: 0 5px;
+        }
+    }
+}
+
 
 
 @import "pages/main";
-@import "pages/carrito";

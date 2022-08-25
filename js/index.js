@@ -1,18 +1,16 @@
-const productos = [
-    { id: 1, nombre: "Placa de Video Asrock RX 570 8GB Phantom", precio: 53050, img: "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_28822_Placa_de_Video_Asrock_RX_570_8GB_GDDR5_Phantom_Gaming_Elite_9ecf3ec5-grn.jpg" },
-    { id: 2, nombre: "PC Intel I3 10100F SSD 240GB 8GB", precio: 69900, img: "https://www.venex.com.ar/products_images/1607972440_1604925619_pcintelcorei39100ssd240gb8gbddr4.jpg" },
-    { id: 3, nombre: "Monitor LG LED 19'' 19M38A-B VGA", precio: 30450, img: "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_8683_Monitor_LG_LED_19___19M38A-B_VGA_4607eba4-grn.jpg" },
-    { id: 4, nombre: "Teclado HP HyperX Alloy CORE RGB LA", precio: 6650, img: "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_26222_Teclado_HP_HyperX_Alloy_CORE_RGB_LA_dd3acd58-grn.jpg" },
-    { id: 5, nombre: "Silla Gamer Cooler Master Caliber R2C Grey", precio: 107400, img: "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30964_Silla_Gamer_Cooler_Master_Caliber_R2C_Grey_21bb1177-grn.jpg" },
-]
-
 let productosCarrito = []
+let listaProductos = [];
+cargardata();
+async function cargardata() {
+    let res = await fetch("/js/data/productos.data.json")
+    let json = await res.json();
+    listaProductos = json;
+    console.log(listaProductos)
+    verProductos(listaProductos);
+}
 
-const catalogoProducto = new CatalogoProducto(productos)
-console.log("Productos Iniciales", catalogoProducto.productos)
+const catalogoProducto = new CatalogoProducto(listaProductos)
 
-
-verProductos(productos)
 iniciarSesion()
 vaciarBoton()
 comprarBoton()
@@ -37,11 +35,13 @@ function verProductos(productoLista) {
                     </div>`
 
         nodoPrincipal.innerHTML += cardProducto
+    })
 
-        // productoBtn = document.getElementById(`list-product-${producto.id}`)
-        // productoBtn.addEventListener("click", () => {
-        //     agregarCarrito(producto)
-        // })
+    productoLista.forEach((producto) => {
+        const productoBtn = document.getElementById(`list-product-${producto.id}`)
+        productoBtn.addEventListener("click", () => {
+            agregarCarrito(producto)
+        })
     })
 }
 
@@ -52,7 +52,7 @@ const nodoBoton = document.getElementById("botonBuscador")
 nodoBoton.addEventListener("click", () => {
     const nodoBuscador = document.getElementById("buscador").value
     filtrarTexto(nodoBuscador)
-    // borrarForm(nodoBuscador.value)
+
 })
 
 const nodoBuscador = document.getElementById("buscador")
@@ -60,7 +60,6 @@ nodoBuscador.addEventListener("keypress", (e) => {
     if (e.keyCode == 13) {
         filtrarTexto(nodoBuscador.value)
         e.preventDefault()
-        // borrarForm(nodoBuscador.value)
     }
 })
 
@@ -69,15 +68,11 @@ nodoBuscador.addEventListener("input", () => {
 })
 
 function filtrarTexto(nodoBuscador) {
-    const filtrados = productos.filter((producto) =>
+    const filtrados = listaProductos.filter((producto) =>
         producto.nombre.toLowerCase().indexOf(nodoBuscador) !== -1)
     verProductos(filtrados)
 
 }
-
-// function borrarForm() {
-//     return nodoBuscador.value = ""
-// }
 
 // if(!encontrado){
 //     nodoResultado.innerHTML = `
@@ -105,66 +100,46 @@ function iniciarSesion() {
 
     else {
         const botonInicio = document.getElementById(`botonInicio`)
-        const formulario = document.getElementById("iniciarSesion")
-        const inputUser = document.getElementById("user")
-        const inputPass = document.getElementById("pass")
-        const btnIngresar = document.getElementById("btnSubmit")
-
 
         botonInicio.addEventListener('click', () => {
-            if (formulario.getAttribute('state') == 'closed') {
-                formulario.style.display = 'block'
-                botonInicio.innerHTML = `<button type="button" class="btn-close" aria-label="Close"></button>`
-                formulario.setAttribute('state', 'opened')
-            }
-            else {
-                formulario.style.display = 'none';
-                botonInicio.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"></i>Iniciar Sesion`
-                formulario.setAttribute('state', 'closed')
-            }
-        });
+            Swal.fire({
+                title: '<h2 style="font-size: 25px"><strong>Iniciar Sesión</strong></h2>',
+                html: `<input type="text" id="login" class="swal2-input my-2" style="box-shadow: none" placeholder="Usuario">
+                <input type="password" id="password" class="swal2-input my-2" style="box-shadow: none" placeholder="Contraseña">`,
+                confirmButtonText: 'Ingresar',
+                confirmButtonColor: '#91C612',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const login = Swal.getPopup().querySelector('#login').value
+                    const password = Swal.getPopup().querySelector('#password').value
+                    if (!login || !password) {
+                        Swal.showValidationMessage(`Ingrese un usuario y una contraseña válida`)
+                    }
+                    setTimeout(() => {
 
-        inputPass.addEventListener('keypress', (e) => {
-            e.keyCode == 13 ? (botonForm(formulario, inputUser), setUser(inputUser)) : false
+                    }, 3000);
+                    let textBienvenido = document.createElement(`span`)
+                    textBienvenido.classList.add(`spanSesion`)
+                    textBienvenido.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"><p class="m-0 px-2" style="font-size:16px;">Bienvenido/a ${login}!`
+                    botonInicio.replaceWith(textBienvenido)
+                    setUser()
+                }
+            })
         });
-
-        btnIngresar.addEventListener("click", () => {
-            btnIngresar.classList.add(`botones`)
-            btnIngresar ? (botonForm(formulario, inputUser), setUser(inputUser)) : false
-        })
     }
 }
 
-function botonForm(formulario, inputUser) {
-    let textBienvenido = document.createElement(`span`)
-    textBienvenido.classList.add(`spanSesion`)
-    textBienvenido.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"><p class="m-0 px-2" style="font-size:16px;">Bienvenido/a ${inputUser.value}!`
-    formulario.style.display = 'none'
-    botonInicio.replaceWith(textBienvenido)
-    formulario.setAttribute('state', 'closed')
-}
-
-function setUser(inputUser) {
-    localStorage.setItem("usuario", `${inputUser.value}`)
+function setUser() {
+    localStorage.setItem("usuario", `${login.value}`)
 }
 
 
 // Agregar productos al carrito
 
-productos.forEach((producto) => {
-    productoBtn = document.getElementById(`list-product-${producto.id}`)
-    // console.log(`list-product-${producto.id}`)
-    productoBtn.addEventListener("click", () => {
-        agregarCarrito(producto)
-    })
-})
-
 if (localStorage.getItem("productos")) {
     carrito.style.display = 'block'
     let productos = localStorage.getItem("productos")
     productosCarrito = JSON.parse(productos)
-
-    // mostrarProductoAgregado(productosCarrito)
 
     productoAgregado()
 }
@@ -180,9 +155,16 @@ function agregarCarrito(producto) {
 }
 
 function mostrarProductoAgregado(producto) {
-
-    productosCarrito.push(producto)
-    productoAgregado(producto)
+    const enCarrito = productosCarrito.find(productosCarrito => productosCarrito.id === producto.id)
+    if (!enCarrito) {
+        productosCarrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, img: producto.img, cantidad: 1 })
+    }
+    else {
+        const index = productosCarrito.indexOf(enCarrito)
+        productosCarrito[index].cantidad++
+    }
+    productoAgregado()
+    console.log(productosCarrito);
 }
 
 function productoAgregado() {
@@ -192,11 +174,15 @@ function productoAgregado() {
     productosCarrito.forEach((producto) => {
         const createDiv = document.createElement('div')
         const cardCarrito = `
-                        <div class="clase d-flex justify-content-between h-25">
-                            <li>${producto.nombre} - <span class="precio">$${producto.precio}</span></li>
+                        <div class="clase d-flex justify-content-between h-25 align-items-center">
+                            <li><img src=${producto.img} class="tamaño mx-3 my-1">${producto.nombre} - <span class="precio">$${producto.precio}</span></li>
                             <div class="d-flex">
-                            <input class="cantidad" type="number" value="1">
-                            <button class="btn btn-danger botonBorrar" type="button"><i class="bi bi-trash-fill"></i></button>
+                                <div class="d-flex mx-3 align-items-center divBorrar">
+                                    <button id="boton-restar" class="btn fs-4 suma_resta">-</button>
+                                    <p class="cantidad px-2 m-0">${producto.cantidad}</p>
+                                    <button id="boton-sumar" class="btn fs-4 suma_resta">+</button>                            
+                                </div>
+                                <button class="btn btn-danger botonBorrar" type="button"><i class="bi bi-trash-fill"></i></button>
                             </div>
                         </div>
                         `
@@ -208,54 +194,64 @@ function productoAgregado() {
             .querySelector('.botonBorrar')
             .addEventListener("click", eliminarProductoDelCarrito)
 
+        const botonRestar = createDiv.querySelector('#boton-restar')
+        const botonSumar = createDiv.querySelector('#boton-sumar')
+
+        botonRestar.addEventListener('click', () => {
+            funcionRestar(producto)
+        })
+
+        botonSumar.addEventListener('click', () => {
+            funcionSumar(producto)
+        })
+
         sumarPrecio()
     })
 }
 
 function sumarPrecio() {
-    let total = Number(0)
     const sumado = document.getElementById("total")
-    const elementoCarrito = document.querySelectorAll('.clase')
 
-    elementoCarrito.forEach((producto) => {
+    const total = productosCarrito.map(producto => producto.cantidad * producto.precio).reduce((prev, curr) => prev + curr, 0)
 
-        const precioDelProducto = producto.querySelector('.precio')
-        const precioTotalCarrito = Number(precioDelProducto.textContent.replace('$', ''))
 
-        const quantity = producto.querySelector('.cantidad')
-        const quantityProducto = Number(quantity.value)
-
-        total = total + precioTotalCarrito * quantityProducto
-    })
     sumado.innerHTML = `$${total}`
     setProductos()
 }
 
 function eliminarProductoDelCarrito(event) {
-    // eliminarArrProducto(event)
+    eliminarArrProducto()
     const botonClickeado = event.target;
     botonClickeado.closest('.clase').remove();
     sumarPrecio();
 }
 
-// function eliminarArrProducto(){
-//     productosCarrito.indexOf((producto)=>{
-//         console.log(productosCarrito)
-//         productosCarrito.splice(event, producto)
-//     })
-// }
+function eliminarArrProducto(producto) {
+    productosCarrito.splice(producto, 1)
+}
 
+function funcionRestar(producto) {
+    const index = productosCarrito.indexOf(producto)
+    productosCarrito[index].cantidad--
 
+    producto.cantidad <= 0 ? producto.cantidad = 1 : null
+    productosCarrito[index].cantidad
 
+    productoAgregado()
 
+    setProductos()
+    sumarPrecio()
+}
 
+function funcionSumar(producto) {
+    const index = productosCarrito.indexOf(producto)
+    productosCarrito[index].cantidad++
 
+    productoAgregado()
 
-
-
-
-
-
+    setProductos()
+    sumarPrecio()
+}
 
 function setProductos() {
     localStorage.setItem("productos", JSON.stringify(productosCarrito))

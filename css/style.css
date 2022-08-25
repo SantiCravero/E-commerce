@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700&display=swap");
 .bg-gamer {
   background-color: #02d206;
@@ -104,6 +105,28 @@ body {
   color: white;
 }
 
+#footer .imagen {
+  width: 20rem;
+  transition: all 300ms;
+}
+#footer .imagen:hover {
+  transform: scale(1.02);
+}
+#footer .logo {
+  font-size: 2.4rem;
+  color: white;
+  margin: 0 10px;
+  transition: all 300ms;
+}
+#footer .logo:hover {
+  transform: scale(1.05);
+}
+@media all and (max-width: 769px) {
+  #footer .logo {
+    margin: 0 5px;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -145,12 +168,12 @@ body {
   box-shadow: none;
 }
 
-.container-xl .comprando {
-  font-size: 0.9rem;
-  background-color: #91C612;
-  border: 1px black solid;
-  padding: 5px;
-  border-radius: 5px;
-  text-transform: uppercase;
-  box-shadow: none;
+#lista .tamaño {
+  width: 5.5rem;
+}
+#lista .divBorrar {
+  height: 37px;
+}
+#lista .divBorrar .suma_resta:focus {
+  box-shadow: 0 0 0 0.15rem rgba(145, 198, 18, 0.25);
 }/*# sourceMappingURL=style.css.map */
