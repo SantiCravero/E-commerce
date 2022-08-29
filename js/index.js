@@ -1,3 +1,6 @@
+
+// Carga de productos desde el json
+
 let productosCarrito = []
 let listaProductos = [];
 cargardata();
@@ -34,6 +37,7 @@ function verProductos(productoLista) {
                         </div>
                     </div>`
 
+
         nodoPrincipal.innerHTML += cardProducto
     })
 
@@ -52,7 +56,7 @@ const nodoBoton = document.getElementById("botonBuscador")
 nodoBoton.addEventListener("click", () => {
     const nodoBuscador = document.getElementById("buscador").value
     filtrarTexto(nodoBuscador)
-
+    window.location.href = "index.html#novedades"
 })
 
 const nodoBuscador = document.getElementById("buscador")
@@ -60,6 +64,7 @@ nodoBuscador.addEventListener("keypress", (e) => {
     if (e.keyCode == 13) {
         filtrarTexto(nodoBuscador.value)
         e.preventDefault()
+        window.location.href = "index.html#novedades"
     }
 })
 
@@ -68,23 +73,30 @@ nodoBuscador.addEventListener("input", () => {
 })
 
 function filtrarTexto(nodoBuscador) {
+    const titulo = document.getElementById('novedades')
+    const nodoPrincipal = document.getElementById("tienda")
     const filtrados = listaProductos.filter((producto) =>
         producto.nombre.toLowerCase().indexOf(nodoBuscador) !== -1)
     verProductos(filtrados)
+    titulo.innerHTML=`
+                    Resultado de la búsqueda: <span class="ms-2 fs-5">${nodoBuscador}</span>
+    `
+
+    if(filtrados.length === 0){
+        nodoPrincipal.innerHTML=`
+                                <div class="noResultado">
+                                    <img src="img/lupa.png" class="px-3 lupa">
+                                    <div class="flex-column ms-4">
+                                        <p class="oops">OOPSS... </p>
+                                        <p>No se encontraron resultados</p>
+                                    </div>
+                                </div>
+        `
+    }
+
+    nodoBuscador == "" ? titulo.innerText= 'Productos Destacados' : null
 
 }
-
-// if(!encontrado){
-//     nodoResultado.innerHTML = `
-//     <div class="alert alert-danger d-flex align-items-center alerta" role="alert">
-//         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>            
-
-//         <div class="px-1">Producto no encontrado...</div>
-
-//     </div>
-//     `
-// }
-// }
 
 
 // Boton de Iniciar Sesion
@@ -102,32 +114,51 @@ function iniciarSesion() {
         const botonInicio = document.getElementById(`botonInicio`)
 
         botonInicio.addEventListener('click', () => {
+
             Swal.fire({
                 title: '<h2 style="font-size: 25px"><strong>Iniciar Sesión</strong></h2>',
-                html: `<input type="text" id="login" class="swal2-input my-2" style="box-shadow: none" placeholder="Usuario">
-                <input type="password" id="password" class="swal2-input my-2" style="box-shadow: none" placeholder="Contraseña">`,
+                html: `<input type="text" id="login" class="inputs swal2-input my-2 " style="box-shadow: none" placeholder="Usuario">
+                    <input type="password" id="password" class="inputs swal2-input my-2 " style="box-shadow: none" placeholder="Contraseña">`,
                 confirmButtonText: 'Ingresar',
                 confirmButtonColor: '#91C612',
+                showCloseButton: true,
                 focusConfirm: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary botonConfirmar',
+                    closeButton: 'btn botonCerrar',
+                    loader: 'custom-loader'
+                },
+                loaderHtml: '<div class="loader"></div>',
                 preConfirm: () => {
                     const login = Swal.getPopup().querySelector('#login').value
                     const password = Swal.getPopup().querySelector('#password').value
                     if (!login || !password) {
-                        Swal.showValidationMessage(`Ingrese un usuario y una contraseña válida`)
+                        setTimeout(() => {
+                            Swal.showValidationMessage(`Ingrese un usuario y una contraseña válida`)
+                        }, 3000);
                     }
-                    setTimeout(() => {
-
-                    }, 3000);
-                    let textBienvenido = document.createElement(`span`)
-                    textBienvenido.classList.add(`spanSesion`)
-                    textBienvenido.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"><p class="m-0 px-2" style="font-size:16px;">Bienvenido/a ${login}!`
-                    botonInicio.replaceWith(textBienvenido)
-                    setUser()
+                    else{
+                        setTimeout(() => {
+                            let textBienvenido = document.createElement(`span`)
+                            textBienvenido.classList.add(`spanSesion`)
+                            textBienvenido.innerHTML = `<i class="px-1 d-flex align-items-center bi bi-person-circle"><p class="m-0 px-2" style="font-size:16px;">Bienvenido/a ${login}!`
+                            botonInicio.replaceWith(textBienvenido)
+                            setUser()
+                        }, 3000);
+                    }
+                    Swal.showLoading()
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(true)
+                        }, 3000)
+                    })
                 }
             })
         });
     }
 }
+
+// Guarda el usuario en el localStorage
 
 function setUser() {
     localStorage.setItem("usuario", `${login.value}`)
@@ -164,8 +195,9 @@ function mostrarProductoAgregado(producto) {
         productosCarrito[index].cantidad++
     }
     productoAgregado()
-    console.log(productosCarrito);
 }
+
+// Muestra los productos en el carrito
 
 function productoAgregado() {
     let listaProducto = document.getElementById("lista")
@@ -182,7 +214,7 @@ function productoAgregado() {
                                     <p class="cantidad px-2 m-0">${producto.cantidad}</p>
                                     <button id="boton-sumar" class="btn fs-4 suma_resta">+</button>                            
                                 </div>
-                                <button class="btn btn-danger botonBorrar" type="button"><i class="bi bi-trash-fill"></i></button>
+                                <button class="btn btn-danger botonBorrar" type="button"><i class="bi bi-trash3-fill"></i></button>
                             </div>
                         </div>
                         `
@@ -209,6 +241,8 @@ function productoAgregado() {
     })
 }
 
+// Funcion para sumar y actualizar el precio
+
 function sumarPrecio() {
     const sumado = document.getElementById("total")
 
@@ -229,6 +263,8 @@ function eliminarProductoDelCarrito(event) {
 function eliminarArrProducto(producto) {
     productosCarrito.splice(producto, 1)
 }
+
+// Botones para sumar y/o restar en la cantidad
 
 function funcionRestar(producto) {
     const index = productosCarrito.indexOf(producto)
@@ -253,9 +289,13 @@ function funcionSumar(producto) {
     sumarPrecio()
 }
 
+// Guarda los productos del carrito en el localStorage
+
 function setProductos() {
     localStorage.setItem("productos", JSON.stringify(productosCarrito))
 }
+
+// Boton de vaciar el carrito
 
 function vaciarBoton() {
     const botonVaciar = document.getElementById("boton-vaciar")
@@ -289,6 +329,8 @@ function vaciarBoton() {
         })
     })
 }
+
+// Boton de comprar
 
 function comprarBoton() {
     const botonComprar = document.getElementById("boton-comprar")

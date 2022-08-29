@@ -13,6 +13,8 @@ body{
     .auto{
         justify-content: center;
         .card{
+            background: white;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
             &:hover{
                 border: 1px solid #009a03;
             }
@@ -25,16 +27,6 @@ body{
                 }
             }
         }
-    }
-}
-
-#resultadoBusqueda{
-    margin-left: 4rem;
-    .alerta{
-        position: absolute;
-        z-index: 1000;
-        margin: 0.25rem;
-        padding: .3rem 1rem;
     }
 }
 
@@ -58,6 +50,24 @@ body{
                 box-shadow: 0 0 0 0.15rem rgb(145 198 18 / 25%);
             }
         }
+    }
+}
+
+.noResultado{
+    height: 14rem;
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+    align-items: center;
+    .oops{
+        font-size: 2.3rem;
+        color: grey;
+        opacity: 0.7;
+    }
+    .lupa{
+        width: 13rem;
+        height: 12rem;
+        opacity: 0.8;
     }
 }
 

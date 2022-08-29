@@ -5,6 +5,10 @@ $color-gamer-original: #02d206;
     background-color: $color-gamer-original;
 }
 
+.text-gamer{
+    color: $color-gamer-original
+}
+
 @mixin botones($fontsize){
     font-size: $fontsize;
     background-color: $color-gamer;

@@ -3,5 +3,9 @@
     { "id": 2, "nombre": "PC Intel I3 10100F SSD 240GB 8GB", "precio": 69900, "img": "https://www.venex.com.ar/products_images/1607972440_1604925619_pcintelcorei39100ssd240gb8gbddr4.jpg" },
     { "id": 3, "nombre": "Monitor LG LED 19'' 19M38A-B VGA", "precio": 30450, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_8683_Monitor_LG_LED_19___19M38A-B_VGA_4607eba4-grn.jpg" },
     { "id": 4, "nombre": "Teclado HP HyperX Alloy CORE RGB LA", "precio": 6650, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_26222_Teclado_HP_HyperX_Alloy_CORE_RGB_LA_dd3acd58-grn.jpg" },
-    { "id": 5, "nombre": "Silla Gamer Cooler Master Caliber R2C Grey", "precio": 107400, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30964_Silla_Gamer_Cooler_Master_Caliber_R2C_Grey_21bb1177-grn.jpg" }
+    { "id": 5, "nombre": "Silla Gamer Cooler Master Caliber R2C Grey", "precio": 107400, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30964_Silla_Gamer_Cooler_Master_Caliber_R2C_Grey_21bb1177-grn.jpg" },
+    { "id": 6, "nombre": "Consola Microsoft XBOX Series S 512GB Digital", "precio": 136560, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_25495_Consola_Microsoft_XBOX_Series_S_512GB_Digital_f5fc94c4-grn.jpg" },
+    { "id": 7, "nombre": "Gabinete Cooler Master H500P Mesh ARGB", "precio": 37410, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_29134_Gabinete_Cooler_Master_H500P_Mesh_ARGB_589dca95-grn.jpg" },
+    { "id": 8, "nombre": "Disco Externo SSD 1TB Game Drive NVMe COD", "precio": 46750, "img": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_25879_Disco_Externo_SSD_WD_1TB_P50_Game_Drive_NVMe_Call_of_Duty_0c2e08d0-grn.jpg" }
+
 ]

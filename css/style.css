@@ -4,6 +4,10 @@
   background-color: #02d206;
 }
 
+.text-gamer {
+  color: #02d206;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -19,25 +23,6 @@ body {
 .container-md .navbar-brand img {
   width: 220px;
   height: 100px;
-}
-.container-md #primerForm {
-  width: 450px;
-  height: 50px;
-}
-.container-md #primerForm > input, .container-md #primerForm button {
-  border: 1px solid grey;
-}
-.container-md #primerForm > input:focus, .container-md #primerForm button:focus {
-  box-shadow: none;
-}
-.container-md #primerForm > input {
-  border-right: none;
-}
-.container-md #primerForm > input:focus {
-  border: 2px solid #91C612;
-}
-.container-md #primerForm > button {
-  border-left: none;
 }
 .container-md .d-flex {
   margin-top: 3px;
@@ -127,6 +112,131 @@ body {
   }
 }
 
+.inputs {
+  width: 20rem !important;
+  height: 45px !important;
+}
+.inputs:focus {
+  border: 1px solid #02d206 !important;
+}
+
+.custom-loader {
+  -webkit-animation: none !important;
+          animation: none !important;
+  border-width: 0 !important;
+  width: 20rem !important;
+}
+
+.botonCerrar:focus {
+  box-shadow: none !important;
+}
+
+.botonConfirmar {
+  border: 1px solid black !important;
+  box-shadow: none !important;
+  text-transform: uppercase !important;
+}
+
+.loader {
+  --height-of-loader: 4px;
+  --loader-color: #02d206;
+  width: 60%;
+  height: var(--height-of-loader);
+  border-radius: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.loader::before {
+  content: "";
+  position: absolute;
+  background: var(--loader-color);
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border-radius: 30px;
+  -webkit-animation: moving 1s ease-in-out infinite;
+          animation: moving 1s ease-in-out infinite;
+}
+
+@-webkit-keyframes moving {
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+    right: 0;
+    left: unset;
+  }
+}
+
+@keyframes moving {
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+    right: 0;
+    left: unset;
+  }
+}
+#primerForm {
+  margin: -0.2rem;
+}
+
+.inputGroup {
+  font-family: "Segoe UI", sans-serif;
+  margin: 1em 0 1em 0;
+  width: 450px;
+  height: 50px;
+  position: relative;
+}
+.inputGroup .textoBuscador {
+  font-family: "Montserrat", sans-serif;
+}
+.inputGroup #botonBuscador {
+  border: 1px solid grey;
+  border-left: none;
+  border-radius: 0rem 0.25rem 0.25rem 0;
+}
+.inputGroup #botonBuscador:focus {
+  box-shadow: none;
+}
+
+.inputGroup input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 1px solid grey;
+  background-color: transparent;
+  border-radius: 0.25rem 0 0rem 0.25rem;
+  border-right: none;
+  width: 100%;
+}
+
+.inputGroup label {
+  font-size: 100%;
+  position: absolute;
+  left: 0;
+  padding: 0.8em;
+  margin-left: 0.5em;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: rgb(100, 100, 100);
+}
+
+.inputGroup :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(0.9);
+  margin: 0em;
+  margin-left: 1.3em;
+  padding: 0.4em;
+  background-color: #ffffff;
+}
+
+.inputGroup :is(input:focus, input:valid) {
+  border: 2px solid #91C612;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -142,6 +252,10 @@ body {
 .row .auto {
   justify-content: center;
 }
+.row .auto .card {
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
 .row .auto .card:hover {
   border: 1px solid #009a03;
 }
@@ -152,16 +266,6 @@ body {
 }
 .row .auto .card button:hover {
   background-color: #04b307;
-}
-
-#resultadoBusqueda {
-  margin-left: 4rem;
-}
-#resultadoBusqueda .alerta {
-  position: absolute;
-  z-index: 1000;
-  margin: 0.25rem;
-  padding: 0.3rem 1rem;
 }
 
 #botonesCarrito > button:focus {
@@ -176,4 +280,22 @@ body {
 }
 #lista .divBorrar .suma_resta:focus {
   box-shadow: 0 0 0 0.15rem rgba(145, 198, 18, 0.25);
+}
+
+.noResultado {
+  height: 14rem;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.noResultado .oops {
+  font-size: 2.3rem;
+  color: grey;
+  opacity: 0.7;
+}
+.noResultado .lupa {
+  width: 13rem;
+  height: 12rem;
+  opacity: 0.8;
 }/*# sourceMappingURL=style.css.map */

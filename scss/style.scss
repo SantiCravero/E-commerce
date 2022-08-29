@@ -16,25 +16,6 @@ body {
             height: 100px;
         }
     }
-    #primerForm{
-        width: 450px;
-        height: 50px;
-        >input, button{
-            border: 1px solid grey;
-            &:focus{
-                box-shadow: none;
-            }
-        }
-        >input{
-            border-right: none;
-            &:focus{
-                border: 2px solid $color-gamer;
-            }
-        }
-        >button{
-            border-left: none;
-        }
-    }
     .d-flex{
         margin-top: 3px;
         span{
@@ -125,6 +106,122 @@ body {
     }
 }
 
+.inputs{
+    width: 20rem !important;
+    height: 45px !important;
+    &:focus{
+        border: 1px solid $color-gamer-original !important;
+    }
+}
+
+.custom-loader {
+    animation: none !important;
+    border-width: 0 !important;
+    width: 20rem !important;
+}
+
+.botonCerrar{
+    &:focus{
+        box-shadow: none !important;
+    }
+}
+
+.botonConfirmar{
+    border: 1px solid black !important;
+    box-shadow: none !important;
+    text-transform: uppercase !important;
+}
+
+.loader {
+    --height-of-loader: 4px;
+    --loader-color: #02d206;
+    width: 60%;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    background-color: rgba(0,0,0,0.2);
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        background: var(--loader-color);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 30px;
+        animation: moving 1s ease-in-out infinite;
+        ;
+    }
+}
+
+@keyframes moving {
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+        right: 0;
+        left: unset;
+    }
+}
+
+#primerForm{
+    margin: -0.2rem;
+}
+
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    width: 450px;
+    height: 50px;
+    position: relative;
+    .textoBuscador{
+        font-family: 'Montserrat', sans-serif;
+    }
+    #botonBuscador{
+        border: 1px solid grey;
+        border-left: none;
+        border-radius: 0rem 0.25rem 0.25rem 0;
+            &:focus{
+                box-shadow: none;
+            }
+    }
+}
+
+.inputGroup input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 1px solid grey;
+    background-color: transparent;
+    border-radius: 0.25rem 0 0rem 0.25rem;
+    border-right: none;
+    width: 100%;
+}
+
+.inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    padding: 0.8em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+}
+
+.inputGroup :is(input:focus, input:valid)~label {
+    transform: translateY(-50%) scale(.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    background-color: #ffffff;
+}
+
+.inputGroup :is(input:focus, input:valid) {
+    border: 2px solid #91C612;
+}
 
 
 @import "pages/main";
